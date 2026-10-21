@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="서울예술대학교 디지털아트전공 강민혁(acornriver)의 생성형 AI 리터러시 발표 — 물리적 신호를 디지털 노이즈로 바꾸는 미디어아트 작업과 AI 협업 과정.">
+  <title>물리적 공명을 디지털 노이즈로 — 강민혁(acornriver) 미디어아트 발표</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ambient Digital Noise & Resonance Waveform Canvas -->
+<canvas id="resonanceCanvas"></canvas>
+
+<!-- Top progress rail -->
+<div class="progress-rail no-print"><div class="progress-fill" id="progressFill"></div></div>
+
+<main class="presentation-viewport">
+  <div class="slides-container" id="slidesContainer">
+
+    <!-- ==================== SLIDE 1: 표지 ==================== -->
+    <section class="slide active" id="slide-1" data-num="01"
+      data-title="표지"
+      data-duration="약 30초"
+      data-note="안녕하세요, 서울예술대학교 디지털아트전공 2423027 강민혁입니다.
+저는 화면 안의 매끈한 픽셀보다, 무용수 팔의 근육 떨림이나 차가운 철판의 진동 같은 현실의 거친 신호를 디지털 노이즈로 바꾸는 작업을 하고 있습니다.
+
+'생성형 AI로 작업했다'고 하면 AI가 그럴듯한 결과물을 뚝딱 만들어줬다고 생각하기 쉬운데, 제 작업실에서 AI는 같이 부딪히고 틀리면서 시스템을 완성해간 파트너에 가까웠습니다. 오늘은 그 과정과 시행착오를 영상과 함께 보여드리겠습니다.
+
+(커버 영상 버튼을 누르면 of memory of 공연 영상이 바로 재생됩니다.)">
+
+      <div class="cover-layout">
+        <div class="cover-left">
+          <div class="cover-badge">
+            <span>●</span> 서울예술대학교 디지털아트전공 · 생성형 인공지능 리터러시
+          </div>
+
+          <div class="cover-title-group">
+            <h1>물리적 공명을<br>디지털 노이즈로</h1>
+            <p class="subtitle">생성형 AI와 부딪히며 만든 나의 작업들</p>
+          </div>
+
+          <div class="cover-meta-grid">
+            <div class="meta-item">
+              <div class="meta-item-label">소속 / 전공</div>
+              <div class="meta-item-value">서울예술대학교 디지털아트전공</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-item-label">학번 / 이름</div>
+              <div class="meta-item-value">2423027 강민혁 (acornriver)</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-item-label">교과목명</div>
+              <div class="meta-item-value">생성형 인공지능 리터러시</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-item-label">발표 시간</div>
+              <div class="meta-item-value">약 5분 (최대 8분 이내)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cover-right">
+          <div class="media-container">
+            <img src="assets/ofmemoryof_1.png" alt="대표 작품 of memory of">
+            <div class="media-play-overlay" onclick="openCinemaModal('iBMpqVptw4k', 'of memory of (2025) — 손 그림자 공간음향 피드백 노이즈')">
+              <div class="play-circle-btn">▶</div>
+              <div class="play-label">of memory of 영상 보기</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>PORTFOLIO PRESENTATION 2026 · SEOUL INSTITUTE OF THE ARTS</span>
+        <span>01 / 08</span>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 2: 관점과 제작 방식 ==================== -->
+    <section class="slide" id="slide-2" data-num="02"
+      data-title="만들고 싶은 감각에서 출발해, 코드로 번역한다"
+      data-duration="약 45초"
+      data-note="저는 기술이나 AI 툴을 먼저 정해놓고 작업을 끼워 맞추지 않습니다.
+'그림자가 멀어질수록 소리가 찢어지면 어떨까?', '도시에 바코드를 붙이고 사람들 반응을 웹으로 받아보면 어떨까?' 같은 감각적인 호기심에서 시작합니다.
+
+구현할 때는 안티그래비티를 메인 파트너로 썼습니다. 대화로 아이디어를 던지고 코드를 받고, 오류가 나면 같이 잡는 방식이에요. 작업 난이도에 따라 에이전트 강도를 조절하면서 토큰도 아꼈습니다.
+
+다만 화면에서 잘 돌던 코드가 실제 장비와 전시 공간에서도 잘 도는지 확인하고 고치는 건 제 몫이었습니다.">
+
+      <div class="slide-top-bar">
+        <div class="slide-category-group">
+          <span class="category-tag">WORK ETHIC & WORKFLOW</span>
+          <span class="slide-category-title">01 · 작업의 출발점과 태도</span>
+        </div>
+        <span class="slide-number-badge">02 / 08</span>
+      </div>
+
+      <div class="slide-headline">
+        <h2>감각에서 출발해, 코드로 번역한다</h2>
+        <p class="sub-lead">기술 스펙이 아니라, 공간과 신체가 만드는 경험이 먼저입니다</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="col-half">
+          <div class="art-card accent-cyan">
+            <div class="card-header-row">
+              <h3 class="card-title">작업의 재료 <span class="card-badge cyan">Physical → Digital</span></h3>
+            </div>
+            <ul class="narrative-list large">
+              <li><strong>그림자</strong> 손 그림자의 움직임을 공간음향 노이즈로</li>
+              <li><strong>빛</strong> 조명의 깜빡임을 모스부호로 해석</li>
+              <li><strong>도시의 캡션</strong> 거리의 바코드와 웹 댓글</li>
+              <li><strong>언어</strong> 입력한 문장을 감열지로 출력</li>
+              <li><strong>근육</strong> 수축할 때 나는 진동 소리(MMG) 수음</li>
+            </ul>
+            <div class="signal-pipeline">
+              <div class="signal-pipeline-title">공통의 태도</div>
+              <div class="signal-pipeline-text">하나의 공식으로 찍어내지 않고, 작품마다 현장이 요구하는 물성에 맞춰 시스템을 새로 짠다.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-half">
+          <div class="art-card accent-orange">
+            <div class="card-header-row">
+              <h3 class="card-title">AI와 일하는 방식 <span class="card-badge orange">Antigravity</span></h3>
+            </div>
+            <ul class="narrative-list large">
+              <li><strong>대화로 코딩</strong> 아이디어를 던지고, 코드를 받고, 오류를 같이 잡는다</li>
+              <li><strong>강도 조절</strong> 작업 난이도에 맞춰 에이전트 강도를 바꿔 토큰을 아낀다</li>
+              <li><strong>현장 확인</strong> 화면에서 돌던 코드가 실제 장비와 전시장에서도 도는지는 내가 확인하고 고친다</li>
+            </ul>
+            <div class="signal-pipeline">
+              <div class="signal-pipeline-title">제작 파이프라인</div>
+              <div class="signal-pipeline-flow">
+                <span class="pipe-node">감각적 구상</span>
+                <span class="pipe-arrow">→</span>
+                <span class="pipe-node highlight">AI와 코드 구현</span>
+                <span class="pipe-arrow">→</span>
+                <span class="pipe-node">장비 연결</span>
+                <span class="pipe-arrow">→</span>
+                <span class="pipe-node highlight">현장 확인 · 튜닝</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>01. PERSPECTIVE & WORKFLOW</span>
+        <span>02 / 08</span>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 3: 그림자와 빛 ==================== -->
+    <section class="slide" id="slide-3" data-num="03"
+      data-title="그림자와 빛 — 움직임과 깜빡임"
+      data-duration="약 50초"
+      data-note="첫 번째는 눈에 보이는 변화를 소리와 기호로 바꾼 두 작업입니다.
+
+왼쪽 'of memory of'는 무용수 손의 그림자를 카메라로 따라가고, 중심에서 멀어질수록 공간음향 노이즈가 거칠어지는 작업입니다. [영상 버튼을 눌러 소리를 같이 들려주세요]
+
+오른쪽 '빛의 언어'는 생성형 AI로 깜빡이는 조명 영상을 만들고, 웹에서 p5.js 사운드 라이브러리로 그 깜빡임을 모스부호처럼 읽어내는 작업입니다. 결과는 텍스트와 사운드로 나옵니다.
+[시뮬레이터 탭] 이건 원리를 보여드리려고 만든 체험용입니다. 글자를 넣으면 모스부호로 불이 깜빡이고 소리가 납니다.">
+
+      <div class="slide-top-bar">
+        <div class="slide-category-group">
+          <span class="category-tag">CASE STUDY 01</span>
+          <span class="slide-category-title">02 · 작품 사례 1 : 그림자와 빛</span>
+        </div>
+        <span class="slide-number-badge">03 / 08</span>
+      </div>
+
+      <div class="slide-headline">
+        <h2>그림자가 찢는 사운드, 조명이 치는 모스부호</h2>
+        <p class="sub-lead">눈에 보이는 왜곡과 깜빡임을 감지해서 소리와 신호로 바꾸는 작업</p>
+      </div>
+
+      <div class="slide-body">
+        <!-- of memory of -->
+        <div class="col-half">
+          <div class="art-card accent-cyan">
+            <div class="card-header-row">
+              <h3 class="card-title">of memory of <span class="card-badge cyan">2025 · 퍼포먼스</span></h3>
+              <span class="card-author">acornriver, 김승민, 우성현</span>
+            </div>
+
+            <div class="media-container">
+              <img src="assets/ofmemoryof_1.png" alt="of memory of 시연">
+              <div class="media-play-overlay" onclick="openCinemaModal('iBMpqVptw4k', 'of memory of (2025) — 손 그림자 공간음향 피드백 노이즈')">
+                <div class="play-circle-btn">▶</div>
+                <div class="play-label">공연 영상 보기 (사운드 포함)</div>
+              </div>
+            </div>
+
+            <ul class="narrative-list">
+              <li><strong>내가 만든 부분</strong> Python 실루엣 트래킹, OSC로 공간음향 위치 데이터 전송</li>
+              <li><strong>감각</strong> 손이 중심에서 멀어질수록 화면 왜곡과 피드백 노이즈가 커진다</li>
+            </ul>
+
+            <div class="signal-pipeline">
+              <div class="signal-pipeline-title">신호 흐름</div>
+              <div class="signal-pipeline-flow">
+                <span class="pipe-node">손 그림자 왜곡</span>
+                <span class="pipe-arrow">→</span>
+                <span class="pipe-node highlight">Python 실루엣 감지</span>
+                <span class="pipe-arrow">→</span>
+                <span class="pipe-node">OSC → 공간음향</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 빛의 언어 -->
+        <div class="col-half">
+          <div class="art-card accent-orange">
+            <div class="card-header-row">
+              <h3 class="card-title">빛의 언어 <span class="card-badge orange">2025 · 웹 인터랙티브</span></h3>
+              <span class="card-author">acornriver (단독)</span>
+            </div>
+
+            <div class="card-tabs">
+              <button class="card-tab-btn active" data-target="viewLightVideo">🎬 작품 영상</button>
+              <button class="card-tab-btn" data-target="viewLightDemo">⚡ 모스부호 체험</button>
+            </div>
+
+            <div class="tab-view-content" id="viewLightVideo" style="display: flex;">
+              <div class="media-container">
+                <img src="assets/light_1.png" alt="빛의 언어 캡처">
+                <div class="media-play-overlay" onclick="openCinemaModal('oltIvDI5zJE', '빛의 언어 (2025) — 조명 깜빡임 모스부호 해석')">
+                  <div class="play-circle-btn">▶</div>
+                  <div class="play-label">빛의 언어 영상 보기</div>
+                </div>
+              </div>
+              <ul class="narrative-list">
+                <li><strong>AI 활용</strong> 생성형 AI로 불규칙하게 깜빡이는 조명 영상 제작</li>
+                <li><strong>구현</strong> p5.js 사운드 라이브러리로 깜빡임을 모스부호로 읽어 텍스트·사운드로 출력</li>
+              </ul>
+            </div>
+
+            <div class="tab-view-content" id="viewLightDemo" style="display: none;">
+              <div class="widget-box morse-widget">
+                <div class="morse-light-bulb" id="morseLightBulb">💡</div>
+                <div class="morse-display" id="morseDisplay">READY TO BLINK</div>
+                <div class="input-row">
+                  <input type="text" class="morse-input" id="morseInput" value="AI" placeholder="영문 입력 (예: AI, NOISE)">
+                  <button class="morse-btn" id="morsePlayBtn">깜빡이기 ▶</button>
+                </div>
+                <div class="fine-print">체험용 시뮬레이션 · 입력한 글자를 모스부호로 바꿔 불빛과 소리로 재생합니다. 실제 작품의 영상 분석이 아닙니다.</div>
+              </div>
+            </div>
+
+            <div class="signal-pipeline">
+              <div class="signal-pipeline-title">신호 흐름</div>
+              <div class="signal-pipeline-flow">
+                <span class="pipe-node">깜빡이는 조명 영상</span>
+                <span class="pipe-arrow">→</span>
+                <span class="pipe-node highlight">p5.js 모스부호 해석</span>
+                <span class="pipe-arrow">→</span>
+                <span class="pipe-node">텍스트 / 사운드</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>02. CASE STUDY: SHADOW & LIGHT</span>
+        <span>03 / 08</span>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 4: 도시의 캡션, 출력되는 말 ==================== -->
+    <section class="slide" id="slide-4" data-num="04"
+      data-title="도시의 캡션, 출력되는 말"
+      data-duration="약 50초"
+      data-note="다음은 화면 안에 있던 텍스트를 현실 공간으로 꺼낸 작업들입니다.
+
+'다민프로젝트 01'은 도시에 캡션을 붙이는 전시였고, 저는 캡션 위치를 기록하고 사람들 댓글을 받는 웹 시스템을 만들었습니다. 부착물마다 바코드가 붙어 있어서 현장에서 찍으면 웹으로 연결됩니다.
+
+'감열–소각'은 언어의 화장터 같은 작업입니다. 텍스트와 숨결 같은 소리를 인식해서 감열지 프린터로 출력합니다. [오른쪽 탭에서 실제 인쇄물 사진과 출력 체험을 보여주세요] 사진은 감열지 인쇄 디테일과 전시할 때 프레임에 걸어둔 모습입니다.">
+
+      <div class="slide-top-bar">
+        <div class="slide-category-group">
+          <span class="category-tag">CASE STUDY 02</span>
+          <span class="slide-category-title">03 · 작품 사례 2 : 공간과 언어</span>
+        </div>
+        <span class="slide-number-badge">04 / 08</span>
+      </div>
+
+      <div class="slide-headline">
+        <h2>도시의 캡션, 출력되는 말</h2>
+        <p class="sub-lead">화면 안에 있던 텍스트를 거리와 종이 위로 꺼내는 작업</p>
+      </div>
+
+      <div class="slide-body">
+        <!-- 다민프로젝트 01 -->
+        <div class="col-half">
+          <div class="art-card accent-cyan">
+            <div class="card-header-row">
+              <h3 class="card-title">다민프로젝트 01 <span class="card-badge cyan">2025 · 웹 & 도시</span></h3>
+              <span class="card-author">acornriver, daon</span>
+            </div>
+
+            <div class="media-container">
+              <img src="assets/damin_thumb.png" alt="다민프로젝트 01 현장 캡션">
+            </div>
+
+            <ul class="narrative-list">
+              <li><strong>도시 개입</strong> 거리 곳곳의 사물과 장소에 캡션을 붙인다</li>
+              <li><strong>웹 시스템</strong> 캡션 위치를 기록하고 댓글을 받는다</li>
+              <li><strong>바코드</strong> 부착물마다 붙은 바코드로 웹에 접속한다</li>
+            </ul>
+
+            <div class="signal-pipeline">
+              <div class="signal-pipeline-title">구조</div>
+              <div class="signal-pipeline-flow">
+                <span class="pipe-node">거리 사물에 부착</span>
+                <span class="pipe-arrow">→</span>
+                <span class="pipe-node highlight">바코드 스캔</span>
+                <span class="pipe-arrow">→</span>
+                <span class="pipe-node">웹 아카이브 · 댓글</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 감열-소각 -->
+        <div class="col-half">
+          <div class="art-card accent-orange">
+            <div class="card-header-row">
+              <h3 class="card-title">감열–소각 <span class="card-badge orange">2025 · 피지컬 설치</span></h3>
+              <span class="card-author">acornriver (단독)</span>
+            </div>
+
+            <div class="card-tabs">
+              <button class="card-tab-btn active" data-target="viewThermalVideo">🎬 설치 영상</button>
+              <button class="card-tab-btn" data-target="viewThermalPhotos">🖼️ 인쇄물 사진</button>
+              <button class="card-tab-btn" data-target="viewThermalDemo">🖨️ 출력 체험</button>
+            </div>
+
+            <div class="tab-view-content" id="viewThermalVideo" style="display: flex;">
+              <div class="media-container">
+                <img src="assets/thermal_1.png" alt="감열-소각 현장">
+                <div class="media-play-overlay" onclick="openCinemaModal('C9EAxM-9FCM', '감열 - 소각 (2025) — 언어의 화장터')">
+                  <div class="play-circle-btn">▶</div>
+                  <div class="play-label">감열–소각 영상 보기</div>
+                </div>
+              </div>
+              <ul class="narrative-list">
+                <li><strong>언어의 화장터</strong> 입력한 문장이 화면에서 흩어진 뒤 감열지로 출력된다</li>
+                <li><strong>구현</strong> 텍스트·소리(숨결) 인식 + 감열지 프린터 출력</li>
+              </ul>
+            </div>
+
+            <div class="tab-view-content" id="viewThermalPhotos" style="display: none;">
+              <div class="photo-pair">
+                <div class="media-container">
+                  <img src="assets/thermal_detail_close.jpg" alt="감열지 인쇄 디테일">
+                  <div class="media-caption">감열지 인쇄 디테일</div>
+                </div>
+                <div class="media-container">
+                  <img src="assets/thermal_framed_grid.jpg" alt="전시 프레임">
+                  <div class="media-caption">전시 프레임</div>
+                </div>
+              </div>
+              <div class="body-text">감열지에 출력된 문장들을 프레임에 걸어 전시한 모습.</div>
+            </div>
+
+            <div class="tab-view-content" id="viewThermalDemo" style="display: none;">
+              <div class="widget-box">
+                <div class="thermal-receipt-slot" id="thermalPaperSlot">
+                  <div class="slot-placeholder">문장을 입력하고 출력을 누르면<br>영수증이 나옵니다</div>
+                </div>
+                <div class="input-row">
+                  <input type="text" class="morse-input" id="thermalTextInput" value="어둠 속에서 부유하던 기억을 보냅니다." placeholder="떠나보낼 문장을 입력하세요">
+                  <button class="morse-btn" id="thermalPrintBtn">출력</button>
+                </div>
+                <div class="fine-print">체험용 시뮬레이션 · 실제 작품의 출력 시스템이 아닙니다.</div>
+              </div>
+            </div>
+
+            <div class="signal-pipeline">
+              <div class="signal-pipeline-title">신호 흐름</div>
+              <div class="signal-pipeline-flow">
+                <span class="pipe-node">문장 · 숨결 입력</span>
+                <span class="pipe-arrow">→</span>
+                <span class="pipe-node highlight">인식 · 처리</span>
+                <span class="pipe-arrow">→</span>
+                <span class="pipe-node">감열지 출력</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>03. CASE STUDY: SPACE & PRINTED WORD</span>
+        <span>04 / 08</span>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 5: 사일런스 ==================== -->
+    <section class="slide" id="slide-5" data-num="05"
+      data-title="사일런스 — 몸의 진동을 신호로"
+      data-duration="약 60초"
+      data-note="제가 기술감독으로 참여한 협업 프로젝트 '사일런스'입니다. 2년간 2천만 원 규모의 지원사업으로 진행됐고, 올해 종로 아트코리아랩에서 공연을 마쳤습니다.
+
+핵심은 피부에 전극을 붙이는 센서(EMG)가 아니라, DJI Mic 2를 무용수 팔에 밀착시켜서 근육이 수축할 때 나는 진동 소리(MMG)를 마이크로 직접 듣는다는 점입니다.
+
+시스템은 두 갈래입니다. 하나는 마이크로 들어온 저주파를 감지해서 OSC 트리거를 보내는 것, 다른 하나는 마이크 입력을 내부망 무선으로 사운드 협업자에게 스트리밍하는 것입니다. 왼쪽 이미지에 있는 값이 현장에서 쓴 실제 필터 설정(Highpass 40Hz, Bandpass 80–800Hz, Noise gate −54dB)입니다.
+
+[오른쪽 근육 수축 버튼] 이건 원리를 보여드리려는 체험용 시뮬레이션이고, 실제 센서 데이터는 아닙니다.
+(왼쪽 가편 영상 버튼은 구글 드라이브가 새 탭으로 열립니다.)">
+
+      <div class="slide-top-bar">
+        <div class="slide-category-group">
+          <span class="category-tag">FLAGSHIP PROJECT</span>
+          <span class="slide-category-title">04 · 핵심 협업 프로젝트 : 사일런스</span>
+        </div>
+        <span class="slide-number-badge">05 / 08</span>
+      </div>
+
+      <div class="slide-headline">
+        <h2>사일런스 — 마이크로 듣는 근육의 울림</h2>
+        <p class="sub-lead">전극 대신 마이크로 수음하는 MMG, 그리고 OSC·무선 오디오 전송 시스템</p>
+      </div>
+
+      <div class="slide-body">
+        <!-- 현장 아카이브 -->
+        <div class="col-35">
+          <div class="art-card accent-cyan">
+            <div class="card-header-row">
+              <h3 class="card-title">현장 아카이브 <span class="card-badge cyan">Art Korea Lab</span></h3>
+            </div>
+
+            <div class="media-container contain">
+              <img src="assets/silence_akl_setting.png" alt="사일런스 현장 필터 세팅 화면">
+              <div class="media-play-overlay" onclick="window.open('https://drive.google.com/drive/folders/1wh9bBoPONRI6IY7k8LCvusBUwqHcsA52', '_blank')">
+                <div class="play-circle-btn">▶</div>
+                <div class="play-label">공연 가편 영상 (Google Drive ↗)</div>
+              </div>
+            </div>
+
+            <div class="fine-print">현장 세팅 · Highpass 40Hz / Bandpass 80–800Hz / Noise gate −54dB</div>
+
+            <a class="link-btn" href="https://drive.google.com/drive/folders/1wh9bBoPONRI6IY7k8LCvusBUwqHcsA52" target="_blank" rel="noopener">
+              <span>🎬</span> 공연 가편 영상 열기 ↗
+            </a>
+
+            <div class="body-text">
+              <strong>크레딧</strong><br>
+              기술감독 · SW 강민혁 / 총괄 기획 정채민<br>
+              사운드 김승민 / 무용 윤채영, 우성현
+            </div>
+            <div class="fine-print">2년간 2,000만 원 지원사업 · 2026 종로 아트코리아랩 공연 완료</div>
+          </div>
+        </div>
+
+        <!-- 시스템 구조 & 체험 -->
+        <div class="col-65">
+          <div class="art-card accent-orange">
+            <div class="card-header-row">
+              <h3 class="card-title">두 갈래 전송 시스템 <span class="card-badge orange">MMG · OSC</span></h3>
+              <div class="osc-packet-badge" id="oscPacketDisplay">[OSC] standby</div>
+            </div>
+
+            <div class="widget-box mmg-widget">
+              <div class="oscilloscope-screen">
+                <canvas class="osc-canvas" id="mmgOscCanvas"></canvas>
+              </div>
+              <div class="mmg-controls">
+                <button class="flex-muscle-btn" id="flexMuscleBtn"><span>💪</span> 근육 수축 체험</button>
+                <div class="mmg-spec">체험용 시뮬레이션 · 실제 센서 데이터 아님</div>
+              </div>
+            </div>
+
+            <div class="split-row">
+              <div class="signal-pipeline">
+                <div class="signal-pipeline-title">흐름 1 · 제어 신호</div>
+                <div class="signal-pipeline-flow">
+                  <span class="pipe-node">DJI Mic 2 밀착 수음</span>
+                  <span class="pipe-arrow">→</span>
+                  <span class="pipe-node highlight">저주파 감지(DSP)</span>
+                  <span class="pipe-arrow">→</span>
+                  <span class="pipe-node">OSC 트리거</span>
+                </div>
+              </div>
+              <div class="signal-pipeline">
+                <div class="signal-pipeline-title">흐름 2 · 오디오 스트리밍</div>
+                <div class="signal-pipeline-flow">
+                  <span class="pipe-node">마이크 입력</span>
+                  <span class="pipe-arrow">→</span>
+                  <span class="pipe-node highlight">내부망 무선 스트리밍</span>
+                  <span class="pipe-arrow">→</span>
+                  <span class="pipe-node">사운드 협업자</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="fine-print" style="margin-top: 14px;">
+              전기 신호(EMG)가 아니라 근육이 내는 진동 소리(MMG, Mechanomyogram)를 수음 · github.com/acornriver/mechanomyogram
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>04. FLAGSHIP COLLABORATION: SILENCE</span>
+        <span>05 / 08</span>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 6: AI 협업과 시행착오 ==================== -->
+    <section class="slide" id="slide-6" data-num="06"
+      data-title="AI가 열어준 길, AI가 못 본 전압"
+      data-duration="약 55초"
+      data-note="AI와 작업하면서 가장 대비됐던 두 장면입니다.
+
+'사일런스'에서는 웹으로 소리를 보내는 시스템의 핵심 엔진 구조를 AI가 바꿔보자고 제안했어요. 제가 몰랐던 방식이었는데 적용해보니 현장에서 안정성과 음질이 눈에 띄게 좋아졌습니다.
+
+반대로 '철의 언어 v2'에서는 AI가 추천한 앰프와 트랜스듀서 조합을 연결했더니 트랜스듀서가 계속 타버렸습니다. 저는 전압이 안 맞는 문제라고 판단했고, 출력이 낮은 앰프로 바꾸고 나서야 안정적으로 돌아갔습니다. [오른쪽 영상 보기]
+
+AI는 코드와 구조를 제안해주는 데는 정말 큰 도움이 됐지만, 현장의 전압과 장비 상태까지 책임져주진 않았습니다. 그래서 생성된 코드나 추천을 쓰는 것만큼, 직접 실행하고 확인하는 과정이 중요했습니다.
+(아래 계기판은 체험용 시뮬레이션입니다.)">
+
+      <div class="slide-top-bar">
+        <div class="slide-category-group">
+          <span class="category-tag">TRIAL & ERROR</span>
+          <span class="slide-category-title">05 · AI 협업의 민낯과 현장 확인</span>
+        </div>
+        <span class="slide-number-badge">06 / 08</span>
+      </div>
+
+      <div class="slide-headline">
+        <h2>AI가 열어준 길, AI가 못 본 전압</h2>
+        <p class="sub-lead">같은 AI가 한 번은 신의 한 수였고, 한 번은 트랜스듀서를 태웠다</p>
+      </div>
+
+      <div class="slide-body">
+        <!-- 사일런스 -->
+        <div class="col-half">
+          <div class="art-card accent-cyan">
+            <div class="card-header-row">
+              <h3 class="card-title">사일런스 <span class="card-badge cyan">신의 한 수</span></h3>
+            </div>
+
+            <div class="pull-quote">AI는 내가 몰랐던 구조를 제안했다.</div>
+
+            <ul class="narrative-list large">
+              <li>웹으로 소리를 보내는 시스템의 <strong>핵심 엔진 구조</strong>를 바꿔보자고 제안했다</li>
+              <li>내 지식 밖에 있던 방식이었지만 적용해 봤다</li>
+              <li>현장에서 <strong>안정성과 음질</strong>이 눈에 띄게 좋아졌다</li>
+            </ul>
+
+            <div class="signal-pipeline">
+              <div class="signal-pipeline-title">배운 것</div>
+              <div class="signal-pipeline-text">AI는 오타를 고쳐주는 도구를 넘어, 내가 몰랐던 선택지를 보여주는 쪽에서 가장 쓸모 있었다.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 철의 언어 v2 -->
+        <div class="col-half">
+          <div class="art-card accent-orange">
+            <div class="card-header-row">
+              <h3 class="card-title">철의 언어 v2 <span class="card-badge orange">시행착오</span></h3>
+            </div>
+
+            <div class="pull-quote orange">AI는 현장의 전압까지 책임지지 않았다.</div>
+
+            <ul class="narrative-list">
+              <li>AI가 추천한 <strong>앰프·트랜스듀서 조합</strong>을 연결했다</li>
+              <li>트랜스듀서가 <strong>계속 손상</strong>됐다</li>
+              <li>전압이 맞지 않는다고 판단해 <strong>출력이 낮은 앰프</strong>로 교체했다</li>
+            </ul>
+
+            <div class="split-row">
+              <div class="burnout-console">
+                <div class="telemetry-row">
+                  <span>코일 부하: <strong id="ampHeatStatus" style="color: var(--accent-cyan);">정상 범위</strong></span>
+                  <div class="heat-meter-bar"><div class="heat-meter-fill" id="ampHeatMeter"></div></div>
+                </div>
+                <div class="console-btn-row">
+                  <button class="card-tab-btn danger-btn" id="test100wBtn">⚠️ 추천 조합으로 구동</button>
+                  <button class="card-tab-btn ok-btn" id="testLowWattBtn">✓ 낮은 출력 앰프로 교체</button>
+                </div>
+                <div class="console-log" id="ampLogConsole">체험용 시뮬레이션 · 실제 측정값이 아닙니다.</div>
+              </div>
+
+              <div>
+                <div class="media-container thumb">
+                  <img src="assets/iron_v2_thumb.jpg" alt="철의 언어 v2">
+                  <div class="media-play-overlay" onclick="openCinemaModal('_ANQhRynQf4', '철의 언어 v2 (2026) — 철판 공명 피드백 퍼포먼스', 24)">
+                    <div class="play-circle-btn sm">▶</div>
+                  </div>
+                </div>
+                <div class="fine-print" style="text-align: center;">철의 언어 v2 영상</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="closing-quote">생성된 코드와 추천을 활용하는 것만큼, 실행하고 확인하는 과정이 중요했다.</div>
+
+      <div class="slide-footer">
+        <span>05. AI COLLABORATION & PHYSICAL REALITY</span>
+        <span>06 / 08</span>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 7: 작품과 구현을 함께 공개하기 ==================== -->
+    <section class="slide" id="slide-7" data-num="07"
+      data-title="작품과 구현을 함께 공개하기"
+      data-duration="약 45초"
+      data-note="저는 완성된 작업만이 아니라 구현한 소스 코드도 GitHub에 공개해두고 있습니다.
+오늘 소개하지 못한 작업들은 개인 웹 아카이브 acornriver.work에서 볼 수 있고, 웹사이트 자체의 코드도 공개되어 있습니다. 화면의 QR로 바로 들어갈 수 있습니다.
+
+AI는 제가 혼자였다면 엄두 내지 못했을 실험의 문을 열어줬습니다. 하지만 그 안에서 무엇을 고르고, 현실에서 어떻게 작동시킬지는 작업실에서 직접 부딪히며 정했습니다. 들어주셔서 감사합니다.">
+
+      <div class="slide-top-bar">
+        <div class="slide-category-group">
+          <span class="category-tag">OPEN ACCESS & ARCHIVE</span>
+          <span class="slide-category-title">06 · 공유와 아카이빙</span>
+        </div>
+        <span class="slide-number-badge">07 / 08</span>
+      </div>
+
+      <div class="slide-headline">
+        <h2>작품과 구현을 함께 공개하기</h2>
+        <p class="sub-lead">웹 아카이브 acornriver.work 와 GitHub 저장소로 과정까지 기록합니다</p>
+      </div>
+
+      <div class="slide-body">
+        <!-- Web Archive -->
+        <div class="col-half">
+          <div class="art-card accent-cyan">
+            <div class="card-header-row">
+              <h3 class="card-title">개인 웹 아카이브 <span class="card-badge cyan">acornriver.work</span></h3>
+            </div>
+
+            <div class="media-container">
+              <img src="assets/webarchive_capture.png" alt="acornriver 웹 아카이브 화면">
+              <div class="media-play-overlay" onclick="window.open('https://acornriver.work/', '_blank')">
+                <div class="play-circle-btn">🔗</div>
+                <div class="play-label">acornriver.work 열기 ↗</div>
+              </div>
+            </div>
+
+            <div class="body-text">오늘 다루지 못한 설치·사운드 작업 기록은 웹 아카이브에서, 구현 코드는 GitHub에서 볼 수 있습니다.</div>
+          </div>
+        </div>
+
+        <!-- QR & Repos -->
+        <div class="col-half">
+          <div class="art-card accent-orange">
+            <div class="card-header-row">
+              <h3 class="card-title">바로 들어가기 <span class="card-badge orange">Public Access</span></h3>
+            </div>
+
+            <div class="qr-row">
+              <img src="assets/qr_acornriver_work.png" alt="QR acornriver.work">
+              <div>
+                <h4>전체 작업 아카이브</h4>
+                <p>사운드아트 · 미디어아트 설치 작업 모음</p>
+                <a href="https://acornriver.work/" target="_blank" rel="noopener">https://acornriver.work/</a>
+              </div>
+            </div>
+
+            <div class="qr-row">
+              <img src="assets/qr_webarchive_github.png" alt="QR WebArchive GitHub">
+              <div>
+                <h4>웹 아카이브 소스 코드</h4>
+                <p>아카이브 사이트 자체의 저장소</p>
+                <a href="https://github.com/acornriver/WebArchive" target="_blank" rel="noopener">github.com/acornriver/WebArchive</a>
+              </div>
+            </div>
+
+            <div class="signal-pipeline">
+              <div class="signal-pipeline-title">작품별 공개 저장소 (GitHub)</div>
+              <div class="repo-list">
+                사일런스 · <a href="https://github.com/acornriver/mechanomyogram" target="_blank" rel="noopener">github.com/acornriver/mechanomyogram</a><br>
+                of memory of · <a href="https://github.com/acornriver/ofmemoryof" target="_blank" rel="noopener">github.com/acornriver/ofmemoryof</a><br>
+                감열–소각 · <a href="https://github.com/acornriver/thermal-poetry" target="_blank" rel="noopener">github.com/acornriver/thermal-poetry</a><br>
+                다민프로젝트 01 · <a href="https://github.com/acornriver/DaonminUrbanGalleryProject" target="_blank" rel="noopener">github.com/acornriver/DaonminUrbanGalleryProject</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>06. OPEN SOURCE & WEB ARCHIVE</span>
+        <span>07 / 08</span>
+      </div>
+    </section>
+
+    <!-- ==================== SLIDE 8: 비디오 아카이브 ==================== -->
+    <section class="slide" id="slide-8" data-num="08"
+      data-title="작업 아카이브 & 비디오 쇼케이스"
+      data-duration="질의응답 및 영상 시연용"
+      data-note="(질의응답과 영상 시연용 슬라이드입니다.)
+궁금한 작품 카드를 누르면 시네마 모드로 영상이 바로 재생됩니다.
+질문이 나오면 해당 작품 영상을 틀어서 현장 사운드를 같이 들으며 설명해주세요.">
+
+      <div class="slide-top-bar">
+        <div class="slide-category-group">
+          <span class="category-tag">VIDEO SHOWCASE & Q&A</span>
+          <span class="slide-category-title">아카이브 · 질의응답 및 영상 시연</span>
+        </div>
+        <span class="slide-number-badge">08 / 08</span>
+      </div>
+
+      <div class="slide-headline">
+        <h2>작업 아카이브</h2>
+        <p class="sub-lead">카드를 누르면 영상이 시네마 모드로 재생됩니다</p>
+      </div>
+
+      <div class="slide-body">
+        <div class="archive-video-grid">
+
+          <div class="archive-video-card" onclick="openCinemaModal('_ANQhRynQf4', '17 철의 언어 v2 (2026) — 피드백 공명 사운드 퍼포먼스', 24)">
+            <div class="archive-thumb-wrap">
+              <img src="assets/iron_v2_thumb.jpg" alt="철의 언어 v2">
+              <div class="archive-play-badge">▶ 2026 · 사운드 퍼포먼스</div>
+            </div>
+            <div class="archive-info">
+              <div class="archive-title">17 철의 언어 v2</div>
+              <div class="archive-meta"><span>트랜스듀서 · 철판 공명 피드백</span><span class="go">영상 보기 ↗</span></div>
+            </div>
+          </div>
+
+          <div class="archive-video-card" onclick="openCinemaModal('iBMpqVptw4k', '11 of memory of (2025) — 손 그림자 공간음향 피드백 노이즈')">
+            <div class="archive-thumb-wrap">
+              <img src="assets/ofmemoryof_yt_thumb.jpg" alt="of memory of">
+              <div class="archive-play-badge">▶ 2025 · 퍼포먼스</div>
+            </div>
+            <div class="archive-info">
+              <div class="archive-title">11 of memory of</div>
+              <div class="archive-meta"><span>손 그림자 추적 · 공간음향 노이즈</span><span class="go">영상 보기 ↗</span></div>
+            </div>
+          </div>
+
+          <div class="archive-video-card" onclick="openCinemaModal('oltIvDI5zJE', '14 빛의 언어 (2025) — 조명 깜빡임 모스부호 해석')">
+            <div class="archive-thumb-wrap">
+              <img src="assets/light_yt_thumb.jpg" alt="빛의 언어">
+              <div class="archive-play-badge">▶ 2025 · 웹 인터랙티브</div>
+            </div>
+            <div class="archive-info">
+              <div class="archive-title">14 빛의 언어</div>
+              <div class="archive-meta"><span>AI 점멸 조명 · p5.js 모스부호</span><span class="go">영상 보기 ↗</span></div>
+            </div>
+          </div>
+
+          <div class="archive-video-card" onclick="openCinemaModal('C9EAxM-9FCM', '16 감열 - 소각 (2025) — 언어의 화장터')">
+            <div class="archive-thumb-wrap">
+              <img src="assets/thermal_yt_thumb.jpg" alt="감열-소각">
+              <div class="archive-play-badge">▶ 2025 · 피지컬 설치</div>
+            </div>
+            <div class="archive-info">
+              <div class="archive-title">16 감열 - 소각</div>
+              <div class="archive-meta"><span>입력한 문장 · 감열지 출력</span><span class="go">영상 보기 ↗</span></div>
+            </div>
+          </div>
+
+          <div class="archive-video-card" onclick="openCinemaModal('6_KeSJpxjUg', '10 연산적 시 (2025) — 백남준아트센터 전시')">
+            <div class="archive-thumb-wrap">
+              <img src="assets/computational_poetry_thumb.jpg" alt="10 연산적 시">
+              <div class="archive-play-badge">▶ 2025 · 백남준아트센터</div>
+            </div>
+            <div class="archive-info">
+              <div class="archive-title">10 연산적 시</div>
+              <div class="archive-meta"><span>백남준아트센터 전시 참여작</span><span class="go">영상 보기 ↗</span></div>
+            </div>
+          </div>
+
+          <div class="archive-video-card" onclick="openCinemaModal('vMkRL9LRjck', '01 자아분열 (2023) — 생성형 AI 배경 & 마이크 디스토션')">
+            <div class="archive-thumb-wrap">
+              <img src="assets/self_split_thumb.jpg" alt="01 자아분열">
+              <div class="archive-play-badge">▶ 2023 · 인터랙티브 설치</div>
+            </div>
+            <div class="archive-info">
+              <div class="archive-title">01 자아분열</div>
+              <div class="archive-meta"><span>AI 배경 · 마이크 디스토션</span><span class="go">영상 보기 ↗</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>07. ARCHIVE CONSOLE & Q&A</span>
+        <span>08 / 08</span>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ==================== VIDEO CINEMA MODAL ==================== -->
+<div class="cinema-modal" id="cinemaModal" aria-label="작품 영상 플레이어">
+  <div class="cinema-modal-header">
+    <div class="cinema-modal-title" id="cinemaModalTitle">작품 영상 감상</div>
+    <button class="cinema-close-btn" id="cinemaCloseBtn" title="닫기 (Esc)">&times;</button>
+  </div>
+  <div class="cinema-video-frame">
+    <iframe id="cinemaIframe" src="" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
+<!-- ==================== HUD CONTROLS ==================== -->
+<nav class="presentation-controls no-print" aria-label="발표 네비게이션 컨트롤">
+  <button class="ctrl-btn" id="prevBtn" title="이전 슬라이드 (←, PageUp)">← 이전</button>
+
+  <div class="slide-dots" id="slideDots"></div>
+
+  <button class="ctrl-btn" id="nextBtn" title="다음 슬라이드 (→, Space, PageDown)">다음 →</button>
+
+  <div class="ctrl-sep"></div>
+
+  <button class="ctrl-btn" id="notesToggleBtn" title="발표자 노트 (N)">
+    💬 노트 <span class="ctrl-hint">(N)</span>
+  </button>
+
+  <button class="ctrl-btn" id="fullscreenBtn" title="전체화면 (F)">
+    ⛶ 전체화면 <span class="ctrl-hint">(F)</span>
+  </button>
+
+  <div class="timer-display" id="timerDisplay" title="클릭하여 타이머 시작/일시정지">
+    <span>⏱️</span>
+    <span id="timerTime">00:00</span>
+    <span class="timer-target">/ 05:00</span>
+  </div>
+</nav>
+
+<!-- ==================== SPEAKER NOTES DRAWER ==================== -->
+<aside class="notes-drawer no-print" id="notesDrawer" aria-label="발표자 노트">
+  <div class="notes-header">
+    <div class="notes-title">
+      <span>SPEAKER NOTES</span>
+      <span class="notes-duration-badge" id="notesDuration">약 30초</span>
+      <span class="notes-slide-title" id="notesSlideTitle">1장 · 표지</span>
+    </div>
+    <button class="notes-close-btn" id="notesCloseBtn" title="닫기">&times;</button>
+  </div>
+  <div class="notes-content" id="notesContent">내용을 불러오는 중...</div>
+</aside>
+
+<script src="script.js"></script>
+</body>
+</html>
