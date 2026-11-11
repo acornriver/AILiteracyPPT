@@ -582,4 +582,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial Notes update
   updateNotes();
+
+  // Deep link: index.html#5 opens slide 5 (does not start the timer)
+  const hashSlide = parseInt(location.hash.slice(1), 10);
+  if (hashSlide >= 1 && hashSlide <= totalSlides) {
+    slides[currentSlideIndex].classList.remove('active');
+    dots[currentSlideIndex].classList.remove('active');
+    currentSlideIndex = hashSlide - 1;
+    slides[currentSlideIndex].classList.add('active');
+    dots[currentSlideIndex].classList.add('active');
+    if (progressFill) progressFill.style.width = `${(hashSlide / totalSlides) * 100}%`;
+    updateNotes();
+  }
 });

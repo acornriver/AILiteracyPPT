@@ -84,7 +84,7 @@ body::after {
 .progress-fill {
   height: 100%;
   width: 12.5%;
-  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue), var(--accent-orange));
+  background: var(--accent-cyan);
   box-shadow: 0 0 14px rgba(0, 242, 254, 0.6);
   transition: width 0.6s var(--ease-out);
 }
@@ -98,7 +98,7 @@ body::after {
   justify-content: center;
   position: relative;
   z-index: 2;
-  background: radial-gradient(ellipse at 50% 40%, rgba(26, 26, 38, 0.5) 0%, rgba(6, 6, 10, 0.96) 100%);
+  background: var(--bg-darkest);
 }
 
 .slides-container {
@@ -121,7 +121,7 @@ body::after {
   padding: 46px 80px 86px;
   display: none;
   flex-direction: column;
-  background: radial-gradient(circle at 88% 6%, rgba(36, 36, 64, 0.55) 0%, rgba(12, 12, 18, 0.97) 62%);
+  background: var(--bg-primary);
 }
 
 .slide.active {
@@ -219,7 +219,7 @@ body::after {
   width: 8px;
   height: 44px;
   border-radius: 4px;
-  background: linear-gradient(180deg, var(--accent-cyan), var(--accent-blue));
+  background: var(--accent-cyan);
   box-shadow: 0 0 18px rgba(0, 242, 254, 0.5);
 }
 
@@ -264,7 +264,7 @@ body::after {
 .art-card {
   flex: 1 1 0;
   min-height: 0;
-  background: linear-gradient(160deg, rgba(30, 30, 46, 0.8), rgba(16, 16, 24, 0.75));
+  background: #14141d;
   backdrop-filter: blur(14px);
   border: 1px solid var(--border-subtle);
   border-radius: 16px;
@@ -281,15 +281,15 @@ body::after {
   position: absolute;
   inset: 0 0 auto 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 242, 254, 0.6), transparent);
+  background: rgba(255, 255, 255, 0.14);
 }
 
 .art-card.accent-cyan::before,
 .art-card.accent-orange::before {
   height: 3px;
 }
-.art-card.accent-cyan::before { background: linear-gradient(90deg, var(--accent-cyan), transparent 85%); }
-.art-card.accent-orange::before { background: linear-gradient(90deg, var(--accent-orange), transparent 85%); }
+.art-card.accent-cyan::before { background: var(--accent-cyan); }
+.art-card.accent-orange::before { background: var(--accent-orange); }
 
 .art-card:hover {
   border-color: var(--border-medium);
@@ -375,7 +375,7 @@ body::after {
 .media-play-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 30%, rgba(0, 0, 0, 0.62));
+  background: rgba(0, 0, 0, 0.32);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -384,7 +384,7 @@ body::after {
   cursor: pointer;
   transition: background 0.25s ease;
 }
-.media-container:hover .media-play-overlay { background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)); }
+.media-container:hover .media-play-overlay { background: rgba(0, 0, 0, 0.18); }
 
 .play-circle-btn {
   position: relative;
@@ -459,9 +459,9 @@ body::after {
   padding: 4px 0 4px 20px;
   margin-bottom: 20px;
   border-left: 4px solid var(--accent-cyan);
-  background: linear-gradient(90deg, rgba(0, 242, 254, 0.08), transparent 70%);
+  background: none;
 }
-.pull-quote.orange { border-left-color: var(--accent-orange); background: linear-gradient(90deg, rgba(255, 94, 58, 0.1), transparent 70%); }
+.pull-quote.orange { border-left-color: var(--accent-orange); background: none; }
 
 .signal-pipeline {
   flex: none;
@@ -657,7 +657,7 @@ body::after {
 .osc-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .mmg-controls { display: flex; justify-content: space-between; align-items: center; gap: 14px; flex: none; }
 .flex-muscle-btn {
-  background: linear-gradient(135deg, #ff5e3a, #ff2a5f);
+  background: #ff5e3a;
   color: #fff;
   border: none;
   padding: 12px 22px;
@@ -735,10 +735,7 @@ body::after {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background:
-    radial-gradient(620px 420px at 14% 32%, rgba(0, 242, 254, 0.11), transparent 70%),
-    radial-gradient(720px 520px at 86% 84%, rgba(255, 94, 58, 0.11), transparent 70%);
-  animation: drift 14s ease-in-out infinite alternate;
+  background: none;
 }
 
 .cover-layout { display: flex; flex: 1; gap: 70px; align-items: center; min-height: 0; }
@@ -794,10 +791,7 @@ body::after {
   position: absolute;
   inset: -3px;
   border-radius: 19px;
-  background: conic-gradient(from var(--ang), transparent 0 55%, var(--accent-cyan), var(--accent-orange), transparent);
-  filter: blur(16px);
-  opacity: 0.6;
-  animation: spin 7s linear infinite;
+  display: none;
 }
 .cover-right .media-container { position: absolute; inset: 0; width: auto; height: auto; margin: 0; border-radius: 16px; min-height: 0; }
 
@@ -810,7 +804,7 @@ body::after {
   font-size: 25px;
   font-weight: 700;
   letter-spacing: -0.5px;
-  background: linear-gradient(90deg, rgba(0, 242, 254, 0.1), rgba(255, 94, 58, 0.1));
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--border-medium);
   border-radius: 12px;
 }
@@ -1059,3 +1053,18 @@ body.notes-open .presentation-controls { bottom: auto; top: 18px; }
 @page { size: 1920px 1080px; margin: 0; }
 .now-working .signal-pipeline-title { font-size: 15px; }
 .now-working .signal-pipeline-text { font-size: 21px; color: var(--text-main); }
+
+/* ---- Polish pass: fill sparse cards, readable minimum sizes, Korean line breaks ---- */
+.slide { word-break: keep-all; overflow-wrap: break-word; }
+.slide-category-title { font-size: 19px; }
+.narrative-list.large { flex: 1 1 auto; justify-content: space-evenly; gap: 14px; padding: 6px 0 18px; }
+.narrative-list.large li { font-size: 28px; line-height: 1.5; }
+.signal-pipeline-title { font-size: 15px; letter-spacing: 1px; }
+.signal-pipeline-text { font-size: 20px; }
+.fine-print { font-size: 16px; }
+.card-badge { font-size: 14px; }
+.media-caption { font-size: 15px; }
+.console-log, .mmg-spec { font-size: 15px; }
+.console-btn-row .card-tab-btn { font-size: 15px; }
+.narrative-list.spread { flex: 1 1 auto; justify-content: space-evenly; padding-bottom: 8px; }
+.narrative-list.spread li { font-size: 24px; line-height: 1.5; }
