@@ -1048,3 +1048,14 @@ body.notes-open .presentation-controls { bottom: auto; top: 18px; }
 
 /* Pipelines placed side by side (slide 5) */
 .split-row .signal-pipeline { flex: 1; margin-top: 0; }
+
+/* Silence photo tab (slide 5) & current-work block (slide 7) */
+.silence-main { flex: 1.5 1 0; min-height: 120px; margin-bottom: 12px; }
+.silence-main img { object-position: center 40%; }
+.photo-pair.silence-pair { flex: 1 1 0; margin-bottom: 14px; }
+.photo-pair.silence-pair .media-container { min-height: 90px; }
+.now-working .signal-pipeline-text { margin-bottom: 6px; }
+
+@page { size: 1920px 1080px; margin: 0; }
+.now-working .signal-pipeline-title { font-size: 15px; }
+.now-working .signal-pipeline-text { font-size: 21px; color: var(--text-main); }

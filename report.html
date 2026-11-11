@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026-2 서울예대 생성형 인공지능 리터러시 과제_강민혁</title>
+  <style>
+    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+    @page {
+      size: A4 portrait;
+      margin: 15mm 16mm 15mm 16mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      font-size: 9.3pt;
+      line-height: 1.72;
+      color: #1a202c;
+      background-color: #f7fafc;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      letter-spacing: -0.025em;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      margin: 20px auto;
+      background: #ffffff;
+      padding: 16mm 18mm 16mm 18mm;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .page-content {
+      flex: 1;
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: transparent;
+      }
+      .page {
+        width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        page-break-after: always;
+        break-after: page;
+      }
+      .page:last-child {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+    }
+
+    /* Header & Meta */
+    .report-header {
+      border-bottom: 2px solid #2d3748;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+
+    .report-category {
+      font-size: 8pt;
+      font-weight: 700;
+      color: #4a5568;
+      letter-spacing: 0.04em;
+      margin-bottom: 2px;
+    }
+
+    .report-title {
+      font-size: 15.5pt;
+      font-weight: 800;
+      line-height: 1.35;
+      color: #111827;
+      margin-bottom: 3px;
+      letter-spacing: -0.03em;
+    }
+
+    .report-subtitle {
+      font-size: 9.5pt;
+      font-weight: 500;
+      color: #4b5563;
+      margin-bottom: 10px;
+    }
+
+    .meta-box {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px 12px;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .meta-label {
+      font-size: 7.2pt;
+      color: #718096;
+      font-weight: 600;
+      margin-bottom: 1px;
+    }
+
+    .meta-value {
+      font-size: 8.8pt;
+      font-weight: 700;
+      color: #1a202c;
+    }
+
+    .deck-link {
+      margin-top: 7px;
+      font-size: 8.2pt;
+      color: #4a5568;
+    }
+    .deck-link strong { color: #2d3748; margin-right: 6px; }
+    .deck-link a, .references-list a { color: #2b6cb0; text-decoration: none; font-family: monospace; font-size: 7.6pt; }
+
+    /* Table of Contents */
+    .toc-box {
+      background: #ffffff;
+      border: 1px solid #edf2f7;
+      border-left: 3px solid #3182ce;
+      padding: 7px 12px;
+      margin-bottom: 12px;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .toc-title {
+      font-size: 8.2pt;
+      font-weight: 700;
+      color: #2b6cb0;
+      margin-bottom: 2px;
+    }
+
+    .toc-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      list-style: none;
+      font-size: 7.8pt;
+      color: #4a5568;
+    }
+
+    .toc-list li span {
+      font-weight: 700;
+      color: #2d3748;
+      margin-right: 3px;
+    }
+
+    /* Headings */
+    h2.section-title {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #1a202c;
+      border-bottom: 1.5px solid #e2e8f0;
+      padding-bottom: 3px;
+      margin-top: 10px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    h2.section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 12px;
+      background-color: #3182ce;
+      border-radius: 2px;
+    }
+
+    h3.sub-title {
+      font-size: 9.6pt;
+      font-weight: 700;
+      color: #2d3748;
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+
+    p {
+      margin-bottom: 6px;
+      text-align: justify;
+    }
+
+    p.indent {
+      text-indent: 0.85em;
+    }
+
+    /* Highlight & Callouts */
+    .callout-box {
+      background: #f7fafc;
+      border-left: 3px solid #3182ce;
+      padding: 7px 11px;
+      margin: 8px 0;
+      font-size: 8.2pt;
+      line-height: 1.62;
+      color: #2d3748;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .callout-box strong {
+      color: #1a202c;
+    }
+
+    /* Figure & Image */
+    .figure-container {
+      margin: 8px 0;
+      text-align: center;
+    }
+
+    .figure-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 3px;
+    }
+
+    .figure-item {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 4px;
+      text-align: center;
+    }
+
+    .figure-item img {
+      width: 100%;
+      height: 105px;
+      object-fit: cover;
+      border-radius: 2px;
+      display: block;
+      margin: 0 auto 3px auto;
+    }
+
+    .figure-caption {
+      font-size: 7.2pt;
+      color: #718096;
+      line-height: 1.3;
+      font-weight: 500;
+    }
+
+    .figure-caption strong {
+      color: #4a5568;
+    }
+
+    /* References */
+    .references-list {
+      list-style: none;
+      padding-left: 0;
+      font-size: 7.8pt;
+      line-height: 1.6;
+      color: #4a5568;
+      margin-top: 5px;
+    }
+
+    .references-list li {
+      margin-bottom: 4px;
+      padding-left: 16px;
+      text-indent: -16px;
+    }
+
+    .references-list li strong {
+      color: #2d3748;
+    }
+
+    /* Page Footer */
+    .page-footer {
+      border-top: 1px solid #edf2f7;
+      padding-top: 6px;
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 7.2pt;
+      color: #a0aec0;
+    }
+
+    .page-num {
+      font-weight: 700;
+      color: #718096;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========================================== PAGE 1 ========================================== -->
+<div class="page">
+  <div class="page-content">
+    <header class="report-header">
+      <div class="report-category">2026학년도 2학기 서울예술대학교 정기 과제 보고서</div>
+      <h1 class="report-title">매끄러운 픽셀 너머 거친 물성의 노이즈로:</h1>
+      <div class="report-subtitle">미디어아트 인터랙션 창작 현장에서 마주한 생성형 AI 협업과 '검수(Verification)'의 리터러시</div>
+
+      <div class="meta-box">
+        <div class="meta-item">
+          <span class="meta-label">교과목명</span>
+          <span class="meta-value">생성형 인공지능 리터러시</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">소속 / 전공</span>
+          <span class="meta-value">디지털아트전공</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">학번 / 이름</span>
+          <span class="meta-value">2423027 강민혁 (acornriver)</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">제출 기한</span>
+          <span class="meta-value">2026. 11. 15 (일) 23:59</span>
+        </div>
+      </div>
+      <div class="deck-link"><strong>발표 자료 (웹 슬라이드)</strong> <a href="https://acornriver.github.io/AILiteracyPPT/">https://acornriver.github.io/AILiteracyPPT/</a></div>
+    </header>
+
+    <nav class="toc-box">
+      <div class="toc-title">목차 (Contents)</div>
+      <ul class="toc-list">
+        <li><span>1.</span> 서론: 기술 만능주의의 환상과 예술적 질문</li>
+        <li><span>2.</span> 창작 현장의 AI 협업 사례: 도구를 넘어선 대화형 페어 프로그래머</li>
+        <li><span>3.</span> 인공지능 리터러시의 조건: 왜 '검수와 각색'이 창작의 본질인가</li>
+        <li><span>4.</span> 결론: 생성형 AI 시대, 미디어아티스트의 위치</li>
+        <li><span>5.</span> 참고문헌 및 자료 (References)</li>
+      </ul>
+    </nav>
+
+    <section>
+      <h2 class="section-title">1. 서론: 기술 만능주의의 환상과 예술적 질문</h2>
+      <p class="indent">
+        최근 몇 년간 챗GPT(ChatGPT), 미드저니(Midjourney), 클로드(Claude) 등으로 대표되는 생성형 인공지능(Generative AI)의 폭발적 보급은 예술과 기술의 경계를 근본적으로 흔들고 있다. 텍스트 몇 줄로 극사실적인 이미지가 렌더링되고, 복잡한 분량의 코드가 수 초 만에 완성되는 환경 속에서 대중과 창작 생태계는 기술의 편리함에 경탄한다. 그러나 디지털아트 전공자로서 작업실과 공연장, 전시 현장을 오가며 내가 느낀 감정은 단순한 경탄보다는 일종의 <strong>‘공허한 기시감’</strong>에 가까웠다. 화면 속에서 생성되는 무수한 결과물들은 더할 나위 없이 매끄럽고 완벽한 픽셀의 조합이지만, 정작 관객의 피부에 닿는 순간 그 어떤 저항도, 공간의 물리적 공명도 만들어내지 못했기 때문이다.
+      </p>
+      <p class="indent">
+        나는 스크린 내부의 정형화된 시각물보다, <strong>무용수 팔 근육의 떨림, 조명의 깜빡임, 차가운 철판의 진동, 감열지에 찍혀 나오는 문장</strong>과 같은 ‘현실의 거친 아날로그 신호’를 디지털 노이즈로 변환하는 피지컬 인터랙션(Physical Interaction) 작업을 지속해왔다. 이러한 작업 세계의 연장선에서 ‘생성형 인공지능 리터러시’라는 교과목은 나에게 매우 절박한 실천적 질문을 던졌다. <em>“인공지능이 모든 형태를 매끈하게 완성해내는 시대에, 왜 우리는 여전히 코드를 직접 한 줄 한 줄 들여다보고 하드웨어의 노이즈와 씨름해야 하는가?”</em>
+      </p>
+      <p class="indent">
+        본 보고서는 생성형 AI를 단순히 결과물을 찍어내는 자동화 기계로 소비하는 태도를 경계하고, <strong>실제 미디어아트 작업 과정에서 AI 에이전트와 대등하게 토론하고 충돌하며 시스템을 완성해나간 구체적 창작 경험</strong>을 기록한다. 나아가 생성형 AI 결과물을 무비판적으로 복사하여 붙여넣는 행위가 왜 창작성을 소멸시키는지를 비판적으로 규명하고, AI 시대에 예술가가 갖추어야 할 진정한 리터러시의 핵심인 <strong>‘비판적 검수(Verification)’와 ‘물질적 각색(Adaptation)’</strong>의 가치를 논하고자 한다.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">2. 창작 현장의 AI 협업 사례: 도구를 넘어선 대화형 페어 프로그래머</h2>
+      <p class="indent">
+        나는 작품을 구상할 때 최신 AI 도구나 기술적 스펙을 먼저 정해두고 거기에 아이디어를 끼워 맞추지 않는다. 언제나 “공간에서 관객이 어떤 신체적 감각을 경험하게 만들 것인가?”라는 감각적 직관에서 출발한다. 그리고 그 직관을 작동 가능한 인터랙티브 시스템으로 번역(Translation)하는 프로그래밍 단계에서 생성형 AI를 <strong>‘페어 프로그래머’</strong>로 활용했다. 코드 구현은 주로 안티그래비티(Antigravity)와 대화하며 진행했고, 영상 소스가 필요할 때는 구글 제미나이(Gemini)와 ChatGPT를 썼다. 아이디어를 던지고, 코드를 받고, 오류가 나면 같이 잡는 방식이다.
+      </p>
+    </section>
+  </div>
+  <footer class="page-footer">
+    <span>서울예술대학교 디지털아트전공 · 2026-2 생성형 인공지능 리터러시 보고서</span>
+    <span class="page-num">01 / 04</span>
+  </footer>
+</div>
+
+<!-- ========================================== PAGE 2 ========================================== -->
+<div class="page">
+  <div class="page-content">
+    <section>
+      <h3 class="sub-title">2.1. &lt;of memory of&gt; (2025): 손 그림자가 찢는 공간음향 노이즈</h3>
+      <p class="indent">
+        &lt;of memory of&gt;는 김승민, 우성현과 함께 만든 퍼포먼스다. 무용수의 손 그림자를 카메라로 따라가고, 그림자가 중심에서 멀어질수록 화면의 왜곡과 공간음향의 피드백 노이즈가 거칠어진다. 이 작업에서 내가 맡은 부분은 Python으로 그림자의 실루엣을 추적하고, 그 위치 데이터를 OSC(Open Sound Control)로 공간음향 쪽에 보내는 시스템이었다.
+      </p>
+
+      <div class="figure-container">
+        <div class="figure-grid">
+          <div class="figure-item">
+            <img src="assets/ofmemoryof_1.png" alt="of memory of 퍼포먼스 장면">
+            <div class="figure-caption"><strong>[그림 1] &lt;of memory of&gt; (2025)</strong>: 무용수의 손 그림자를 추적해 공간음향 노이즈로 바꾸는 퍼포먼스 장면</div>
+          </div>
+          <div class="figure-item">
+            <img src="assets/silence_stage_1.jpg" alt="사일런스 공연 장면">
+            <div class="figure-caption"><strong>[그림 2] &lt;사일런스&gt; (2026)</strong>: 종로 아트코리아랩(AKL) 공연 장면</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="indent">
+        실루엣 추적 코드와 OSC 전송 코드는 AI와 대화를 주고받으며 작성했다. 내가 원하는 감각을 말로 설명하면 AI가 코드로 옮겨주고, 오류가 나면 그 메시지를 다시 들고 가서 함께 원인을 찾는 식이었다. 다만 <strong>내 노트북 화면에서 잘 돌던 코드가 실제 카메라와 조명, 공연장의 스피커 앞에서도 똑같이 도는지</strong>는 AI가 확인해줄 수 없었다. 그 확인과 수정은 매번 현장에서 내가 직접 해야 하는 일이었다.
+      </p>
+
+      <h3 class="sub-title">2.2. 다원예술 협업 &lt;사일런스(Silence)&gt; (2026): 마이크로 듣는 근육의 울림</h3>
+      <p class="indent">
+        &lt;사일런스&gt;는 2년간 약 2천만 원 규모의 지원사업으로 진행되어 2026년 종로 아트코리아랩(AKL)에서 공연을 마친 협업 프로젝트다. 총괄 기획 정채민, 사운드 김승민, 무용 윤채영·우성현과 함께했고, 나는 기술감독과 소프트웨어 개발을 맡았다. 이 작업의 핵심은 피부에 전극을 붙이는 근전도(EMG) 센서가 아니라, 무선 마이크(DJI Mic 2)를 무용수의 팔에 밀착시켜 근육이 수축할 때 나는 진동 소리, 즉 <strong>근음도(Mechanomyogram, MMG)</strong>를 직접 수음한다는 점이다.
+      </p>
+      <p class="indent">
+        시스템은 두 갈래로 짰다. 하나는 마이크로 들어온 저주파를 감지해 OSC 트리거를 보내는 제어 신호의 흐름이고, 다른 하나는 마이크 입력을 내부망 무선으로 사운드 협업자에게 스트리밍하는 오디오의 흐름이다. 현장에서는 Highpass 40Hz, Bandpass 80–800Hz, Noise gate −54dB의 필터 값으로 근육의 울림만 남기도록 조정했다.
+      </p>
+      <p class="indent">
+        이 작업에서 AI는 <strong>‘신의 한 수’</strong>를 두었다. 소리를 무선으로 보내는 오디오 송출 엔진의 구조를 아예 바꿔보자고 제안한 것이다. 내 지식 바깥에 있던 방식이었지만 적용해 보았고, 현장에서 전송의 안정성과 음질이 눈에 띄게 좋아졌다. AI는 오타를 고쳐주는 도구일 때보다, 내가 몰랐던 선택지를 보여줄 때 가장 쓸모 있었다.
+      </p>
+
+      <h3 class="sub-title">2.3. &lt;철의 언어 v2&gt; (2026): AI가 보지 못한 전압</h3>
+      <div class="figure-container">
+        <div class="figure-grid">
+          <div class="figure-item">
+            <img src="assets/iron_2.png" alt="철의 언어 v2">
+            <div class="figure-caption"><strong>[그림 3] &lt;철의 언어 v2&gt; (2026)</strong>: 철판에 트랜스듀서를 붙여 공명 피드백을 만드는 사운드 퍼포먼스</div>
+          </div>
+          <div class="figure-item">
+            <img src="assets/thermal_1.png" alt="감열-소각">
+            <div class="figure-caption"><strong>[그림 4] &lt;감열–소각&gt; (2025)</strong>: 입력한 문장을 감열지로 출력하는 설치</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="indent">
+        반대의 경험은 철판에 트랜스듀서를 붙여 울리는 퍼포먼스 &lt;철의 언어 v2&gt;에서 있었다. AI가 추천한 앰프와 트랜스듀서 조합을 그대로 연결했더니 트랜스듀서가 반복해서 타버렸다. 나는 전압이 맞지 않는 문제라고 판단했고, 출력이 낮은 앰프로 바꾸고 나서야 시스템이 안정적으로 돌아갔다. 아두이노(Arduino)로 들어오는 아날로그 센서 값의 노이즈 필터링, 시리얼 통신에서 데이터가 유실되는 문제도 AI와 질문을 주고받으며 풀어갔지만, 리허설에서는 공연장의 습도와 땀 때문에 센서 값이 요동치면서 AI가 계산해둔 이상적인 임계값이 무너졌다. 결국 편차를 보정하는 루틴을 현장에서 직접 추가해야 했다.
+      </p>
+    </section>
+  </div>
+  <footer class="page-footer">
+    <span>서울예술대학교 디지털아트전공 · 2026-2 생성형 인공지능 리터러시 보고서</span>
+    <span class="page-num">02 / 04</span>
+  </footer>
+</div>
+
+<!-- ========================================== PAGE 3 ========================================== -->
+<div class="page">
+  <div class="page-content">
+    <section>
+      <p class="indent">
+        <strong>알고리즘은 물리적 현실의 무질서를 예측하지 못한다.</strong> 같은 AI가 한 번은 내가 몰랐던 길을 열어주었고, 한 번은 트랜스듀서를 태웠다. AI는 코드와 구조를 제안하는 데 큰 도움이 됐지만, 현장의 전압과 장비 상태까지 책임져주지는 않았다. 생성된 코드와 추천을 활용하는 것만큼, 직접 실행하고 확인하는 과정이 중요했다.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">3. 인공지능 리터러시의 조건: 왜 '검수와 각색'이 창작의 본질인가</h2>
+      <p class="indent">
+        교과목 과제 안내에 명시된 <em>“인공지능 결과물을 그대로 붙여넣은 것이 발견되었을 때 감점 및 점수 미부여(검수 및 각색 필수)”</em>라는 지침은 단순히 대학 과제의 윤리적 규범을 넘어, <strong>생성형 인공지능 리터러시의 핵심을 짚는 말</strong>이라고 생각한다. 위의 두 경험이 바로 그 지침의 현장 버전이었기 때문이다.
+      </p>
+
+      <h3 class="sub-title">3.1. '평균의 폭력'과 생성형 AI 결과물의 한계</h3>
+      <p class="indent">
+        대규모 언어 모델(LLM)이나 확산 모델은 방대한 데이터를 통계적으로 학습한 뒤 <strong>‘가장 그럴듯한 평균값’</strong>을 내놓는 구조다. 그래서 프롬프트 몇 줄로 만든 결과물은 얼핏 유려하고 문법적으로 완벽해 보이지만, 들여다보면 어디선가 본 듯한 클리셰와 무난한 상투어의 나열인 경우가 많다. AI가 추천한 앰프 조합도 ‘일반적으로 그럴듯한’ 답이었을 뿐, 내 작업실의 그 트랜스듀서에 맞는 답은 아니었다.
+      </p>
+      <p class="indent">
+        예술은 ‘예측 가능한 평균’에서 벗어난 틈에서 관객에게 새로운 감각을 던지는 일이다. 미디어아티스트가 AI가 내놓은 코드를 그대로 붙여넣거나, 보고서에 AI가 쓴 번드르르한 문장을 확인 없이 채워 넣는다면, 그것은 자신의 판단을 알고리즘의 ‘통계적 평균’에 넘겨주는 일이다.
+      </p>
+
+      <div class="callout-box">
+        <strong>💡 내가 지키려는 검수(Verification)와 각색(Adaptation)의 순서:</strong>
+        <br>1. <strong>현장 확인</strong>: AI가 만든 코드와 추천이 실제 장비, 전시 공간, 관객의 반응 속도에서도 맞는지 직접 돌려본다.
+        <br>2. <strong>물성에 맞춘 각색</strong>: 하나의 공식으로 찍어내지 않고, 작품마다 현장이 요구하는 물성에 맞춰 시스템을 다시 짠다.
+        <br>3. <strong>함께 공개</strong>: 완성된 작업뿐 아니라 구현한 소스 코드도 GitHub에 공개한다.
+      </div>
+
+      <h3 class="sub-title">3.2. 화면 밖으로 꺼내는 일: 각색의 실제</h3>
+      <p class="indent">
+        각색은 대단한 기술이 아니라, AI가 준 것을 어디에 어떻게 놓을지 정하는 일이었다. &lt;빛의 언어&gt;(2025)에서는 구글 제미나이와 ChatGPT로 불규칙하게 깜빡이는 조명 영상을 만들었지만, 그 깜빡임을 p5.js로 모스부호처럼 읽어 텍스트와 사운드로 바꾸는 해석의 규칙은 내가 정했다. daon과 함께한 &lt;다민프로젝트 01&gt;(2025)은 도시 곳곳의 사물과 장소에 캡션을 붙이는 작업으로, 나는 캡션의 위치를 기록하고 댓글을 받는 웹 시스템을 만들었다. 부착물마다 붙은 바코드를 현장에서 찍어야 웹으로 연결된다. &lt;감열–소각&gt;(2025)은 입력한 문장과 숨결 같은 소리를 인식해 감열지 프린터로 출력하는 ‘언어의 화장터’다.
+      </p>
+      <p class="indent">
+        세 작업 모두 코드의 상당 부분은 AI와 함께 썼다. 그러나 <strong>화면 안에 있던 텍스트를 거리의 돌 위에, 감열지 위에 꺼내 놓겠다는 결정</strong>은 AI가 내려준 것이 아니다. 무엇을 고르고 현실에서 어떻게 작동시킬지는 작업실과 현장에서 직접 부딪히며 정했고, 나는 그 과정이 ‘각색(Adaptation)’이라고 생각한다.
+      </p>
+    </section>
+  </div>
+  <footer class="page-footer">
+    <span>서울예술대학교 디지털아트전공 · 2026-2 생성형 인공지능 리터러시 보고서</span>
+    <span class="page-num">03 / 04</span>
+  </footer>
+</div>
+
+<!-- ========================================== PAGE 4 ========================================== -->
+<div class="page">
+  <div class="page-content">
+    <section>
+      <h2 class="section-title">4. 결론: 생성형 AI 시대, 미디어아티스트의 위치</h2>
+      <p class="indent">
+        나에게 ‘생성형 인공지능 리터러시’란 인공지능을 가장 빠르게 조작하는 숙련도를 뜻하지 않는다. 그것은 <strong>AI와 일하면서도 나의 예술적 질문을 잃지 않는 태도</strong>이며, <strong>AI가 내놓은 편리한 답을 의심하고 현장에서 다시 확인하는 긴장감</strong>이다.
+      </p>
+      <p class="indent">
+        AI는 혼자였다면 엄두 내지 못했을 실험의 문을 열어주었다. 지루한 반복 코드를 줄여주고, 내가 몰랐던 구조를 제안해주었다. 그러나 마이크를 무용수의 팔에 밀착시키고, 앰프를 바꿔 끼우고, 철판을 울려 공진을 확인하고, 공연장에서 관객의 숨소리를 듣는 일은 여전히 나의 몫으로 남아 있다.
+      </p>
+      <p class="indent">
+        이 작업은 지금도 이어지고 있다. 현재 나는 북서울미술관 &lt;사운드는 살아있다&gt;에서 원우리 작가와 함께 &lt;모든 귀는 […] 이다 · 청각 다변기&gt;와 &lt;청감 타워&gt;를 작업하고 있다. 앞으로도 생성형 AI를 두려워하거나 맹신하지 않고, 대화와 검수를 거쳐 디지털 신호를 땀과 진동, 빛과 그림자가 있는 현실의 공간으로 꺼내는 작업을 계속할 것이다. 그것이 이번 학기 수업과 작업을 통해 내가 얻은 ‘생성형 인공지능 리터러시’이다.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">5. 참고문헌 및 자료 (References)</h2>
+      <ul class="references-list">
+        <li><strong>발터 벤야민 (Walter Benjamin)</strong>, 최성만 역 (2007). <em>기술복제시대의 예술작품</em>. 도서출판 길.</li>
+        <li><strong>레프 마노비치 (Lev Manovich)</strong>, 서정신 역 (2014). <em>뉴미디어의 언어 (The Language of New Media)</em>. 커뮤니케이션북스.</li>
+        <li><strong>Floridi, L., &amp; Chiriatti, M.</strong> (2020). GPT-3: Its nature, scope, limits, and consequences. <em>Minds and Machines</em>, 30(4), 681-694.</li>
+        <li><strong>발표 자료 (웹 슬라이드)</strong>: <a href="https://acornriver.github.io/AILiteracyPPT/">https://acornriver.github.io/AILiteracyPPT/</a> · 저장소 <a href="https://github.com/acornriver/AILiteracyPPT">github.com/acornriver/AILiteracyPPT</a></li>
+        <li><strong>작업 아카이브</strong>: <a href="https://acornriver.work/">https://acornriver.work/</a> · 저장소 <a href="https://github.com/acornriver/WebArchive">github.com/acornriver/WebArchive</a></li>
+        <li><strong>작품별 공개 저장소</strong>: <a href="https://github.com/acornriver/mechanomyogram">github.com/acornriver/mechanomyogram</a> (사일런스) · <a href="https://github.com/acornriver/ofmemoryof">github.com/acornriver/ofmemoryof</a> · <a href="https://github.com/acornriver/thermal-poetry">github.com/acornriver/thermal-poetry</a> (감열–소각)</li>
+        <li><strong>진행 중인 작업 (북서울미술관 &lt;사운드는 살아있다&gt;, 원우리 작가와 협업)</strong>: <a href="https://acornriver.github.io/SVart/">https://acornriver.github.io/SVart/</a> · <a href="https://acornriver.github.io/SVartTower/">https://acornriver.github.io/SVartTower/</a></li>
+      </ul>
+    </section>
+  </div>
+  <footer class="page-footer">
+    <span>서울예술대학교 디지털아트전공 · 2026-2 생성형 인공지능 리터러시 보고서</span>
+    <span class="page-num">04 / 04</span>
+  </footer>
+</div>
+
+</body>
+</html>
